@@ -23,7 +23,7 @@ class Calendario extends Component {
                     bottomDivider>
                     <Avatar source={require('./imagenes/40Años.png')} />
                     <ListItem.Content>
-                        <ListItem.Title>{item.nombre}</ListItem.Title>
+                        <ListItem.Title style={{fontWeight: 'bold'}}>{item.nombre}</ListItem.Title>
                         <ListItem.Subtitle>{item.descripcion}</ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
