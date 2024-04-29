@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { ListItem, Avatar, Card } from '@rneui/themed';
 import { SafeAreaView, FlatList, Text } from 'react-native';
 import { ACTIVIDADES } from '../comun/actividades';
-import { NOSOTROS } from '../comun/nosotros';
+import { NOSOTROS } from '../comun/nosotros'
+import { baseUrl } from '../comun/comun';
 
 class Identidad extends Component {
     constructor(props) {
@@ -42,7 +43,7 @@ class Identidad extends Component {
     renderActividadesLista = ({ item }) => {
         return (
             <ListItem bottomDivider>
-                <Avatar source={require('./imagenes/40Años.png')} />
+                <Avatar source={{uri: baseUrl+item.imagen}} />
                 <ListItem.Content>
                     <ListItem.Title style={{fontWeight: 'bold'}}>{item.nombre}</ListItem.Title>
                     <ListItem.Subtitle>{item.descripcion}</ListItem.Subtitle>

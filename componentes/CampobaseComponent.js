@@ -11,6 +11,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { Icon } from '@rneui/themed';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { baseUrl, colorGaztaroaClaro, colorGaztaroaOscuro } from '../comun/comun';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -21,7 +22,7 @@ function CustomDrawerContent(props) {
             <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}> 
                 <View style={styles.drawerHeader}> 
                     <View style={{flex:1}}>
-                        <Image source={require('./imagenes/logo.png')} style={styles.drawerImage} /> 
+                        <Image source={{uri: baseUrl+'/imagenes/logo.png'}} style={styles.drawerImage} /> 
                     </View> 
                     <View style={{flex: 2}}> 
                         <Text style={styles.drawerHeaderText}> Gaztaroa</Text> 
@@ -40,7 +41,7 @@ function CalendarioNavegador({navigation}) {
             headerMode = "float"
             screenOptions = {{
                 headerTintColor: '#fff',
-                    headerStyle: { backgroundColor: '#015afc' },
+                    headerStyle: { backgroundColor: colorGaztaroaOscuro },
                 headerTitleStyle: { color: '#fff' },
             }}
         >
@@ -77,7 +78,7 @@ function HomeNavegador({navigation}){
         screenOptions={{
             headerMode: 'screen', 
             headerTintColor: '#fff', 
-            headerStyle: { backgroundColor: '#015afc' }, 
+            headerStyle: { backgroundColor: colorGaztaroaOscuro }, 
             headerTitleStyle: { color: '#fff' },
             headerLeft: () => (
                 <Icon 
@@ -104,7 +105,7 @@ function IdentidadNavegador({navigation}){
         screenOptions={{
             headerMode: 'screen', 
             headerTintColor: '#fff', 
-            headerStyle: { backgroundColor: '#015afc' }, 
+            headerStyle: { backgroundColor: colorGaztaroaOscuro }, 
             headerTitleStyle: { color: '#fff' },
             headerLeft: () => (
                 <Icon 
@@ -131,7 +132,7 @@ function ContactoNavegador({navigation}){
         screenOptions={{
             headerMode: 'screen', 
             headerTintColor: '#fff', 
-            headerStyle: { backgroundColor: '#015afc' }, 
+            headerStyle: { backgroundColor: colorGaztaroaOscuro }, 
             headerTitleStyle: { color: '#fff' },
             headerLeft: () => (
                 <Icon 
@@ -158,7 +159,7 @@ function DrawerNavegador() {
         drawerContent={props => <CustomDrawerContent {...props} />}
         screenOptions={{ 
             headerShown: false, 
-            drawerStyle: { backgroundColor: '#c2d3da', } 
+            drawerStyle: { backgroundColor: colorGaztaroaClaro, } 
         }}> 
             <Drawer.Screen 
                 name="Campo base" 
@@ -235,7 +236,7 @@ class Campobase extends Component {
 const styles = StyleSheet.create({ 
     container: { flex: 1, }, 
     drawerHeader: { 
-        backgroundColor: '#015afc',
+        backgroundColor: colorGaztaroaOscuro,
         height: 100, 
         alignItems: 'center', 
         justifyContent: 'center', 
