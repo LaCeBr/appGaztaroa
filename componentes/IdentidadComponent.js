@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import { ListItem, Avatar, Card } from '@rneui/themed';
 import { SafeAreaView, FlatList, Text } from 'react-native';
-import { ACTIVIDADES } from '../comun/actividades';
 import { NOSOTROS } from '../comun/nosotros'
 import { baseUrl } from '../comun/comun';
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => { 
+    return { 
+        actividades: state.actividades 
+    } 
+}
 
 class Identidad extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            actividades: ACTIVIDADES
-        };
-    }
-
     renderCardPrueba = () => {
         const item = NOSOTROS[0];  
         return (
@@ -32,7 +31,7 @@ class Identidad extends Component {
                 <Card.Title>Actividades y Recursos</Card.Title>
                 <Card.Divider/>
                 <FlatList
-                    data={this.state.actividades}
+                    data={this.props.actividades.actividades}
                     renderItem={this.renderActividadesLista}
                     keyExtractor={(item, index) => index.toString()}
                 />
@@ -66,4 +65,4 @@ class Identidad extends Component {
     }
 }
 
-export default Identidad;
+export default connect(mapStateToProps)(Identidad);
