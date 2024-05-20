@@ -4,6 +4,7 @@ import { SafeAreaView, FlatList, Text } from 'react-native';
 import { NOSOTROS } from '../comun/nosotros'
 import { baseUrl } from '../comun/comun';
 import { connect } from 'react-redux';
+import { IndicadorActividad } from './IndicadorActividadComponent';
 
 const mapStateToProps = state => { 
     return { 
@@ -25,16 +26,34 @@ class Identidad extends Component {
         );
     };
 
-    renderActividadesItem = () => {
-        return (
-            <Card>
-                <Card.Title>Actividades y Recursos</Card.Title>
-                <Card.Divider/>
+    CompruebaEstado = () => {
+        if (this.props.actividades.errMess){
+            return( 
+                <View> 
+                    <Text>{props.errMess}</Text> 
+                </View> 
+            ); 
+        }else if(this.props.actividades.isLoading){
+            return( 
+                <IndicadorActividad/>
+            );
+        }else{
+            return( 
                 <FlatList
                     data={this.props.actividades.actividades}
                     renderItem={this.renderActividadesLista}
                     keyExtractor={(item, index) => index.toString()}
                 />
+            );
+        }
+    }
+
+    renderActividadesItem = () => {
+        return (
+            <Card>
+                <Card.Title>Actividades y Recursos</Card.Title>
+                <Card.Divider/>
+                {this.CompruebaEstado()}
             </Card>
         );
     };
