@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import { Text, View, ScrollView, FlatList } from 'react-native';
+import React, { Component, useState } from 'react';
+import { Text, View, ScrollView, FlatList, Modal } from 'react-native';
 import { Card, ListItem, Icon } from '@rneui/themed';
 import { baseUrl } from '../comun/comun'; 
 import { connect } from 'react-redux';
 import { postFavorito } from '../redux/ActionCreators';
+import Formulario from './Formulario';
 
 
 const mapStateToProps = state => { 
@@ -20,6 +21,12 @@ const mapDispatchToProps = dispatch => ({
 
 function RenderExcursion(props) {
 
+    const [modalVisible, setModalVisible] = useState(false);
+    
+    const toggleModal = () => {
+        setModalVisible(!modalVisible);
+    };
+
     const excursion = props.excursion;
     
         if (excursion != null) {
@@ -31,14 +38,38 @@ function RenderExcursion(props) {
                     <Text style={{margin: 20}}>
                         {excursion.descripcion}
                     </Text>
-                    <Icon 
-                    raised 
-                    reverse 
-                    name={ props.favorita ? 'heart' : 'heart-o'} 
-                    type='font-awesome' 
-                    color='#f50' 
-                    onPress={() => props.favorita ? console.log('La excursión ya se encuentra entre las favoritas') : props.onPress()}
-                    />
+                    <View style={{flexDirection: 'row',
+                        justifyContent: 'center',
+                        marginTop: 10}}>
+                        <Icon 
+                            raised 
+                            reverse 
+                            name={ props.favorita ? 'heart' : 'heart-o'} 
+                            type='font-awesome' 
+                            color='#f50' 
+                            onPress={() => props.favorita ? console.log('La excursión ya se encuentra entre las favoritas') : props.onPress()}
+                        />
+                        <Icon
+                            raised
+                            reverse
+                            name='edit'
+                            type='font-awsome'
+                            color='blue'
+                            onPress={toggleModal}
+                        />
+                    </View>
+                    <Modal 
+                        visible={modalVisible}
+                        animationType="slide"
+                        transparent={true}
+                        onRequestClose={toggleModal}>
+                        <View style={{flex: 1,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            backgroundColor: 'rgba(0, 0, 0, 0.5)'}}>
+                            <Formulario toggleModal={toggleModal} excursionId = {excursion.id}/>
+                        </View>
+                    </Modal> 
                 </Card>
             );
         }
@@ -69,7 +100,7 @@ function RenderComentario(props) {
                 scrollEnabled={false}
                 data={comentario}
                 renderItem={({ item }) => <RenderComentarioItem comentario={item} />}
-                keyExtractor={item => item.id.toString()}
+                keyExtractor={item => (item.id ? item.id.toString() : Date.now().toString())}
             />
         </Card> 
     ); 
